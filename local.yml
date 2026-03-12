@@ -1,0 +1,31 @@
+---
+- name: Install Git on Ubuntu 24.04
+  hosts: localhost
+  connection: local
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install apt software
+      apt:
+        name:
+          - vim
+          - git
+          - libfuse2t64
+          - tmux
+          - curl
+          - btop
+        state: latest
+        update_cache: yes
+    
+    # - name: Install Chrome
+    #   include_tasks: install_chrome.yml
+
+    # - name: Install Docker
+    #   include_tasks: install_docker.yml
+
+    # - name: Install Joplin 
+    #   become: false
+    #   shell:
+    #     cmd: "wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash"
+    #     creates: ~/.joplin/Joplin.AppImage  # Prevents re-running if already installed
