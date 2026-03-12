@@ -3,10 +3,9 @@
   hosts: localhost
   connection: local
   become: true
-  gather_facts: true
 
   tasks:
-    - name: Install apt software
+    - name: Install apt packages
       apt:
         name:
           - vim
@@ -17,7 +16,16 @@
           - btop
         state: latest
         update_cache: yes
-    
+
+    - name: Set wallpaper
+      become_user: jack
+      dconf:
+        key: "/org/gnome/desktop/background/picture-uri"
+        value: "'file:///usr/share/backgrounds/ubuntu-default-greyscale-wallpaper.png'"
+
+    - name: copy dotfiles
+      include_tasks: dotfiles.yml
+        
     # - name: Install Chrome
     #   include_tasks: install_chrome.yml
 

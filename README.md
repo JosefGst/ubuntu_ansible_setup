@@ -5,8 +5,8 @@ My personal workstation setup using ansible.
 ## Usage
 run 
 
-    ansible-playbook init_setup.yml -K
+    ansible-playbook local.yml -K
 
 ## Developement
 
-    ansible-playbook --syntax-check init_setup.yml
+    ansible-playbook --syntax-check local.yml
