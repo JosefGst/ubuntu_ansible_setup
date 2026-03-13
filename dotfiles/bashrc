@@ -153,9 +153,9 @@ export ROS_MASTER_URI=http://$ROS_IP:11311
 #Robots
 #TKO ROBOT 2
 #export ROS_MASTER_URI=http://192.168.1.10:11311
-#TKO ROBOT 1 
+#TKO ROBOT 1
 #export ROS_MASTER_URI=http://192.168.1.10:11311
-#Deliverybot ROS1 
+#Deliverybot ROS1
 #export ROS_MASTER_URI=http://172.30.200.147:11311
 
 
@@ -178,7 +178,7 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:/home/jack/Software/balena-cli/bin"
 
 export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator 
+export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH="$HOME/.local/bin:$PATH"
 

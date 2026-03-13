@@ -10,7 +10,7 @@
         dest: /home/jack/.bashrc
         owner: jack
         group: jack
-    
+
     - name: copy .bash_coloring
       copy:
         src: dotfiles/bash_coloring
@@ -24,7 +24,7 @@
         dest: /home/jack/.bash_aliases
         owner: jack
         group: jack
-    
+
     - name: copy .gitconfig
       copy:
         src: dotfiles/gitconfig
