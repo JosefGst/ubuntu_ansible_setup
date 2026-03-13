@@ -14,8 +14,9 @@
           - tmux
           - curl
           - btop
+          - yamllint
         state: latest
-        update_cache: yes
+        update_cache: true
 
     - name: Set wallpaper
       become_user: jack
