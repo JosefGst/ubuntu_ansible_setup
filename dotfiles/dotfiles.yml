@@ -7,34 +7,34 @@
     - name: copy .bashrc
       copy:
         src: dotfiles/bashrc
-        dest: /home/jack/.bashrc
-        owner: jack
-        group: jack
+        dest: /home/josef/.bashrc
+        owner: josef
+        group: josef
 
     - name: copy .bash_coloring
       copy:
         src: dotfiles/bash_coloring
-        dest: /home/jack/.bash_coloring
-        owner: jack
-        group: jack
+        dest: /home/josef/.bash_coloring
+        owner: josef
+        group: josef
 
     - name: copy .bash_aliases
       copy:
         src: dotfiles/bash_aliases
-        dest: /home/jack/.bash_aliases
-        owner: jack
-        group: jack
+        dest: /home/josef/.bash_aliases
+        owner: josef
+        group: josef
 
     - name: copy .gitconfig
       copy:
         src: dotfiles/gitconfig
-        dest: /home/jack/.gitconfig
-        owner: jack
-        group: jack
+        dest: /home/josef/.gitconfig
+        owner: josef
+        group: josef
 
     - name: copy .tmux.conf
       copy:
         src: dotfiles/tmux.conf
-        dest: /home/jack/.tmux.conf
-        owner: jack
-        group: jack
+        dest: /home/josef/.tmux.conf
+        owner: josef
+        group: josef
