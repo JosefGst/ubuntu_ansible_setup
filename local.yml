@@ -18,11 +18,11 @@
         state: latest
         update_cache: true
 
-#    - name: Set wallpaper
-#      become_user: jack
-#      dconf:
-#        key: "/org/gnome/desktop/background/picture-uri"
-#        value: "'file:///usr/share/backgrounds/ubuntu-default-greyscale-wallpaper.png'"
+    - name: Set wallpaper
+      become_user: josef
+      dconf:
+        key: "/org/gnome/desktop/background/picture-uri"
+        value: "'file:///usr/share/backgrounds/ubuntu-default-greyscale-wallpaper.png'"
 
     - name: copy dotfiles
       include_tasks: dotfiles/dotfiles.yml
