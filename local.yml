@@ -15,6 +15,8 @@
           - curl
           - btop
           - yamllint
+          - net-tools
+          - nmap
         state: latest
         update_cache: true
 
@@ -27,14 +29,14 @@
     - name: copy dotfiles
       include_tasks: dotfiles/dotfiles.yml
 
-    - name: Install Chrome
-      include_tasks: install_chrome.yml
+    # - name: Install Chrome
+    #   include_tasks: install_chrome.yml
 
     - name: Install Docker
       include_tasks: install_docker.yml
 
-    - name: Install Joplin
-      become: false
-      shell:
-        cmd: "wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash"
-        creates: ~/.joplin/Joplin.AppImage  # Prevents re-running if already installed
+    # - name: Install Joplin
+    #   become: false
+    #   shell:
+    #     cmd: "wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash"
+    #     creates: ~/.joplin/Joplin.AppImage  # Prevents re-running if already installed
