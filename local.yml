@@ -38,6 +38,9 @@
     - name: Install Docker
       include_tasks: install_docker.yml
 
+    - name: Install VS Code
+      include_tasks: install_vscode.yml
+
     - name: Install Joplin
       include_tasks: install_joplin.yml
 

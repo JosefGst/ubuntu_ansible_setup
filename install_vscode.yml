@@ -1,0 +1,8 @@
+---
+# Install VS Code via snap
+
+- name: Install VS Code
+  become: true
+  ansible.builtin.shell:
+    cmd: "snap install code --classic"
+    creates: /snap/bin/code
