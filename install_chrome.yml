@@ -1,14 +1,14 @@
 ---
-- name: Download Google GPG key
+- name: Download Google Chrome .deb package
   become: true
-  get_url:
-    url: https://dl.google.com/linux/linux_signing_key.pub
-    dest: /etc/apt/keyrings/google-chrome.asc
+  ansible.builtin.get_url:
+    url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    dest: /tmp/google-chrome-stable_current_amd64.deb
     mode: '0644'
 
-- name: Add Google Chrome repository
+- name: Install Google Chrome from downloaded .deb
   become: true
-  apt_repository:
-    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.asc] http://dl.google.com/linux/chrome/deb/ stable main"
+  ansible.builtin.apt:
+    deb: /tmp/google-chrome-stable_current_amd64.deb
     state: present
-    filename: google-chrome
+
