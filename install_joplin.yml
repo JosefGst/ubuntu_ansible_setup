@@ -1,0 +1,6 @@
+---
+- name: Install Joplin
+  become: false
+  shell:
+    cmd: "wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash"
+    creates: ~/.joplin/Joplin.AppImage  # Prevents re-running if already installed
