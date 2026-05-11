@@ -10,7 +10,6 @@
         name:
           - vim-nox
           - git
-          - libfuse2t64
           - tmux
           - curl
           - btop
@@ -40,6 +39,9 @@
 
     - name: Install VS Code
       include_tasks: install_vscode.yml
+
+    - name: Install hterm
+      include_tasks: install_hterm.yml
 
     - name: Install Joplin
       include_tasks: install_joplin.yml

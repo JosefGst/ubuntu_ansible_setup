@@ -1,5 +1,10 @@
 --- 
 
+- name: Ensure Joplin dependency is installed
+  apt:
+    name: libfuse2t64
+    state: present
+
 - name: Resolve desktop user home for Joplin
   become: false
   set_fact:
