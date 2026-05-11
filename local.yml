@@ -44,6 +44,9 @@
     - name: Install Joplin
       include_tasks: install_joplin.yml
 
+    - name: Install NoMachine
+      include_tasks: install_no_machine.yml
+
   handlers:
     - name: restart docker
       ansible.builtin.systemd:

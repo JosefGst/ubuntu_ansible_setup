@@ -1,0 +1,17 @@
+---
+- name: Download NoMachine .deb package
+  become: true
+  ansible.builtin.get_url:
+    url: >-
+      {{
+        'https://web9001.nomachine.com/download/9.5/Linux/'
+        'nomachine_9.5.7_2_amd64.deb'
+      }}
+    dest: /tmp/nomachine_9.5.7_2_amd64.deb
+    mode: '0644'
+
+- name: Install NoMachine from downloaded .deb
+  become: true
+  ansible.builtin.apt:
+    deb: /tmp/nomachine_9.5.7_2_amd64.deb
+    state: present
