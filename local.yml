@@ -1,5 +1,5 @@
 ---
-- name: Install Git on Ubuntu 24.04
+- name: Workstation Setup for Ubuntu 26.04
   hosts: localhost
   connection: local
   become: true
@@ -20,14 +20,17 @@
         state: latest
         update_cache: true
 
-    - name: Set wallpaper
-      become_user: josef
-      dconf:
-        key: "/org/gnome/desktop/background/picture-uri"
-        value: "'file:///usr/share/backgrounds/ubuntu-default-greyscale-wallpaper.png'"
+    # - name: Install ROS Lyrical
+    #   include_tasks: install_ros_lyrical.yml
 
-    - name: copy dotfiles
-      include_tasks: dotfiles/dotfiles.yml
+    # - name: Set wallpaper
+    #   become_user: josef
+    #   dconf:
+    #     key: "/org/gnome/desktop/background/picture-uri"
+    #     value: "'file:///usr/share/backgrounds/ubuntu-default-greyscale-wallpaper.png'"
+
+    # - name: copy dotfiles
+    #   include_tasks: dotfiles/dotfiles.yml
 
     # - name: Install Chrome
     #   include_tasks: install_chrome.yml
@@ -35,8 +38,11 @@
     - name: Install Docker
       include_tasks: install_docker.yml
 
-    # - name: Install Joplin
-    #   become: false
-    #   shell:
-    #     cmd: "wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash"
-    #     creates: ~/.joplin/Joplin.AppImage  # Prevents re-running if already installed
+    - name: Install Joplin
+      include_tasks: install_joplin.yml
+
+  handlers:
+    - name: restart docker
+      ansible.builtin.systemd:
+        name: docker
+        state: restarted
