@@ -1,6 +1,58 @@
----
+--- 
+
+- name: Resolve desktop user home for Joplin
+  become: false
+  set_fact:
+    joplin_home: >-
+      {{
+        (lookup('ansible.builtin.env', 'SUDO_USER') | length > 0)
+        | ternary(
+            lookup('ansible.builtin.pipe', 'getent passwd ' ~ lookup('ansible.builtin.env', 'SUDO_USER') ~ ' | cut -d: -f6'),
+            lookup('ansible.builtin.env', 'HOME')
+          )
+      }}
+
 - name: Install Joplin
   become: false
   shell:
     cmd: "wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash"
-    creates: ~/.joplin/Joplin.AppImage  # Prevents re-running if already installed
+    creates: "{{ joplin_home }}/.joplin/Joplin.AppImage"  # Prevents re-running if already installed
+  environment:
+    HOME: "{{ joplin_home }}"
+      
+- name: Ensure Joplin plugins directory exists
+  become: false
+  file:
+    path: "{{ joplin_home }}/.config/joplin-desktop/plugins"
+    state: directory
+    mode: '0755'
+
+- name: Download Joplin Templates plugin
+  become: false
+  get_url:
+    url: https://github.com/joplin/plugins/releases/download/plugins/joplin.plugin.templates@3.0.0.jpl
+    dest: "{{ joplin_home }}/.config/joplin-desktop/plugins/joplin.plugin.templates.jpl"
+    mode: '0644'
+
+- name: Download Joplin Bidirectional Links plugin
+  become: false
+  get_url:
+    url: https://github.com/joplin/plugins/releases/download/plugins/joplin-plugin-bidirectional-links@0.2.1.jpl
+    dest: "{{ joplin_home }}/.config/joplin-desktop/plugins/joplin-plugin-bidirectional-links.jpl"
+    mode: '0644'
+
+- name: Download Joplin Click to Copy plugin
+  become: false
+  get_url:
+    url: https://github.com/joplin/plugins/releases/download/plugins/com.joplin.click.to.copy@1.4.2.jpl
+    dest: "{{ joplin_home }}/.config/joplin-desktop/plugins/com.joplin.click.to.copy.jpl"
+    mode: '0644'
+
+- name: Download Joplin Emoji Autocomplete plugin
+  become: false
+  get_url:
+    url: https://github.com/joplin/plugins/releases/download/plugins/de.pernpas.joplin.markdown.emoji.autocomplete@1.1.0.jpl
+    dest: "{{ joplin_home }}/.config/joplin-desktop/plugins/de.pernpas.joplin.markdown.emoji.autocomplete.jpl"
+    mode: '0644'
+
+  
