@@ -16,6 +16,8 @@
           - yamllint
           - net-tools
           - nmap
+          - libreoffice
+          - pandoc
         state: latest
         update_cache: true
 
@@ -49,6 +51,9 @@
     - name: Install NoMachine
       include_tasks: install_no_machine.yml
 
+    - name: Enable Chinese Pinyin Keyboard
+      include_tasks: chinse_pinyin_keyboard.yml
+  
   handlers:
     - name: restart docker
       ansible.builtin.systemd:

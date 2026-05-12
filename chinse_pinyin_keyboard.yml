@@ -1,0 +1,59 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Resolve desktop user for input method changes
+  become: false
+  set_fact:
+    chinese_keyboard_user: >-
+      {{
+        (lookup('ansible.builtin.env', 'SUDO_USER') | length > 0)
+        | ternary(lookup('ansible.builtin.env', 'SUDO_USER'), lookup('ansible.builtin.env', 'USER'))
+      }}
+
+- name: Resolve desktop user home and uid
+  become: false
+  set_fact:
+    chinese_keyboard_uid: "{{ lookup('ansible.builtin.pipe', 'id -u ' ~ chinese_keyboard_user) }}"
+    chinese_keyboard_home: "{{ lookup('ansible.builtin.pipe', 'getent passwd ' ~ chinese_keyboard_user ~ ' | cut -d: -f6') }}"
+
+- name: Install Chinese language support and IBus Pinyin
+  apt:
+    name:
+      - language-pack-zh-hans
+      - language-pack-gnome-zh-hans
+      - ibus-libpinyin
+    state: present
+
+- name: Ensure ibus is set as the input method system
+  become: true
+  command: im-config -n ibus
+  become_user: "{{ chinese_keyboard_user }}"
+
+- name: Add Chinese (Intelligent Pinyin) to GNOME input sources
+  become: true
+  command: >
+    gsettings set org.gnome.desktop.input-sources sources
+    "[('xkb', 'us'), ('ibus', 'libpinyin')]"
+  become_user: "{{ chinese_keyboard_user }}"
+  environment:
+    HOME: "{{ chinese_keyboard_home }}"
+    DISPLAY: "{{ lookup('ansible.builtin.env', 'DISPLAY') | default(':0') }}"
+    XDG_RUNTIME_DIR: "/run/user/{{ chinese_keyboard_uid }}"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ chinese_keyboard_uid }}/bus"
+
+- name: Restart ibus to apply changes
+  become: true
+  shell: timeout 5 ibus restart || true
+  become_user: "{{ chinese_keyboard_user }}"
+  environment:
+    HOME: "{{ chinese_keyboard_home }}"
+    DISPLAY: "{{ lookup('ansible.builtin.env', 'DISPLAY') | default(':0') }}"
+    XDG_RUNTIME_DIR: "/run/user/{{ chinese_keyboard_uid }}"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ chinese_keyboard_uid }}/bus"
+  ignore_errors: yes
+
+- name: Inform user to relogin
+  debug:
+    msg: "Chinese keyboard enabled. Please LOG OUT and LOG BACK IN for changes to take effect."
