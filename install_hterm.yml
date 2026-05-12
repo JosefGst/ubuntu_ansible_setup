@@ -1,0 +1,61 @@
+---
+- name: Install hterm runtime dependencies
+  ansible.builtin.apt:
+    name:
+      - libgtk2.0-0t64
+    state: present
+    update_cache: true
+
+- name: Download hterm
+  ansible.builtin.get_url:
+    url: https://www.der-hammer.info/terminal/hterm-linux-64.tgz
+    dest: /usr/local/src/hterm-linux-64.tgz
+    mode: '0644'
+
+- name: Extract hterm
+  ansible.builtin.unarchive:
+    src: /usr/local/src/hterm-linux-64.tgz
+    dest: /opt/
+    remote_src: yes
+
+- name: Ensure hterm is executable
+  ansible.builtin.file:
+    path: /opt/hterm
+    mode: '0755'
+    state: file
+
+- name: Link hterm into PATH
+  ansible.builtin.file:
+    src: /opt/hterm
+    dest: /usr/local/bin/hterm
+    state: link
+    force: true
+
+- name: Ensure current user is in serial/USB access groups
+  ansible.builtin.user:
+    name: "{{ ansible_env.SUDO_USER | default(ansible_user_id) }}"
+    groups: "{{ item }}"
+    append: true
+  loop:
+    - dialout
+    - plugdev
+
+- name: Ensure USB serial devices are assigned to dialout
+  ansible.builtin.copy:
+    dest: /etc/udev/rules.d/99-usb-serial-permissions.rules
+    mode: '0644'
+    content: |
+      # Keep USB serial devices available to local interactive users.
+      SUBSYSTEM=="tty", KERNEL=="ttyUSB[0-9]*", MODE="0660", GROUP="dialout", TAG+="uaccess"
+      SUBSYSTEM=="tty", KERNEL=="ttyACM[0-9]*", MODE="0660", GROUP="dialout", TAG+="uaccess"
+  register: hterm_usb_udev_rules
+
+- name: Reload udev rules when serial permissions change
+  ansible.builtin.command: udevadm control --reload-rules
+  when: hterm_usb_udev_rules.changed
+  changed_when: false
+
+- name: Trigger udev for current serial devices
+  ansible.builtin.command: udevadm trigger --subsystem-match=tty
+  when: hterm_usb_udev_rules.changed
+  changed_when: false

@@ -14,6 +14,8 @@ My personal workstation setup using ansible.
 
     ansible-playbook local.yml -K
 
+After Installation reboot the PC to make all changes take effect.
+
 ## Development
 
     ansible-playbook --syntax-check local.yml
