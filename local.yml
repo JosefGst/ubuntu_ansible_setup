@@ -5,22 +5,6 @@
   become: true
 
   tasks:
-    - name: Install apt packages
-      apt:
-        name:
-          - vim-nox
-          - git
-          - tmux
-          - curl
-          - btop
-          - yamllint
-          - net-tools
-          - nmap
-          - libreoffice
-          - pandoc
-        state: latest
-        update_cache: true
-
     # - name: Install ROS Lyrical
     #   include_tasks: install_ros_lyrical.yml
 
@@ -34,22 +18,22 @@
     #   include_tasks: dotfiles/dotfiles.yml
 
     - name: Install Chrome
-      include_tasks: install_chrome.yml
+      include_tasks: Software/install_chrome.yml
 
     - name: Install Docker
-      include_tasks: install_docker.yml
+      include_tasks: Software/install_docker.yml
 
     - name: Install VS Code
-      include_tasks: install_vscode.yml
+      include_tasks: Software/install_vscode.yml
 
     - name: Install hterm
-      include_tasks: install_hterm.yml
+      include_tasks: Software/install_hterm.yml
 
     - name: Install Joplin
-      include_tasks: install_joplin.yml
+      include_tasks: Software/install_joplin.yml
 
     - name: Install NoMachine
-      include_tasks: install_no_machine.yml
+      include_tasks: Software/install_no_machine.yml
 
     - name: Enable Chinese Pinyin Keyboard
       include_tasks: chinse_pinyin_keyboard.yml

@@ -1,0 +1,17 @@
+---
+- name: Install aptpackages
+      apt:
+        name:
+          - vim-nox
+          - git
+          - tmux
+          - curl
+          - btop
+          - yamllint
+          - net-tools
+          - nmap
+          - libreoffice
+          - pandoc
+          - pre-commit
+        state: latest
+        update_cache: true
