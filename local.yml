@@ -5,9 +5,6 @@
   become: true
 
   tasks:
-    - name: Install apt packages
-      include_tasks: Software/install_apt_packages.yml
-
     # - name: Install ROS Lyrical
     #   include_tasks: install_ros_lyrical.yml
 
@@ -19,6 +16,10 @@
 
     # - name: copy dotfiles
     #   include_tasks: dotfiles/dotfiles.yml
+
+    # Software installation tasks
+    - name: Install apt packages
+      include_tasks: Software/install_apt_packages.yml
 
     - name: Install Chrome
       include_tasks: Software/install_chrome.yml
@@ -37,6 +38,9 @@
 
     - name: Install NoMachine
       include_tasks: Software/install_no_machine.yml
+
+    - name: Install FreeCAD
+      include_tasks: Software/install_freeCad.yml
 
     - name: Enable Chinese Pinyin Keyboard
       include_tasks: chinse_pinyin_keyboard.yml
