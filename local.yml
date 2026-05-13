@@ -5,6 +5,9 @@
   become: true
 
   tasks:
+    - name: Install apt packages
+      include_tasks: Software/install_apt_packages.yml
+
     # - name: Install ROS Lyrical
     #   include_tasks: install_ros_lyrical.yml
 
