@@ -13,5 +13,6 @@
       - libreoffice
       - pandoc
       - pre-commit
+      - gparted
     state: latest
     update_cache: true
