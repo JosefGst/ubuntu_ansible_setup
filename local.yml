@@ -42,6 +42,9 @@
     - name: Install FreeCAD
       include_tasks: Software/install_freeCad.yml
 
+    - name: Install Android SDK
+      include_tasks: Software/install_android_sdk.yml
+
     - name: Enable Chinese Pinyin Keyboard
       include_tasks: chinse_pinyin_keyboard.yml
   
