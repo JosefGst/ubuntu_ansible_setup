@@ -14,5 +14,9 @@
       - pandoc
       - pre-commit
       - gparted
+      - distrobox
+      - imagemagick
+      - tree
+      - foliate
     state: latest
     update_cache: true
