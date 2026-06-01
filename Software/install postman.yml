@@ -1,0 +1,8 @@
+---
+# Install Postman via snap
+
+- name: Install Postman
+  become: true
+  ansible.builtin.shell:
+    cmd: "snap install postman"
+    creates: /snap/bin/postman

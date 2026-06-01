@@ -18,5 +18,6 @@
       - imagemagick
       - tree
       - foliate
+      - xournalpp
     state: latest
     update_cache: true

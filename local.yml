@@ -45,6 +45,9 @@
     - name: Install Android SDK
       include_tasks: Software/install_android_sdk.yml
 
+    - name: Install Postman
+      include_tasks: Software/install_postman.yml
+
     - name: Enable Chinese Pinyin Keyboard
       include_tasks: chinse_pinyin_keyboard.yml
   
