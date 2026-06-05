@@ -19,5 +19,6 @@
       - tree
       - foliate
       - xournalpp
+      - vlc
     state: latest
     update_cache: true
