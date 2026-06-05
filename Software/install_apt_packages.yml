@@ -20,5 +20,6 @@
       - foliate
       - xournalpp
       - vlc
+      - android-sdk
     state: latest
     update_cache: true

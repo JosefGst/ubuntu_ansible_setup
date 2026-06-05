@@ -42,8 +42,8 @@
     - name: Install FreeCAD
       include_tasks: Software/install_freeCad.yml
 
-    - name: Install Android SDK
-      include_tasks: Software/install_android_sdk.yml
+    # - name: Install Android SDK
+    #   include_tasks: Software/install_android_sdk.yml
 
     - name: Install Postman
       include_tasks: Software/install_postman.yml

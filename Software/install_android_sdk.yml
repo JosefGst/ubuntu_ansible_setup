@@ -1,8 +1,0 @@
----
-# Install Android SDK via snap
-
-- name: Install Android SDK
-  become: true
-  ansible.builtin.shell:
-    cmd: "snap install android-sdk --classic"
-    creates: /snap/bin/android-sdk
