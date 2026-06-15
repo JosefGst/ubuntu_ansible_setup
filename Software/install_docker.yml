@@ -25,9 +25,14 @@
       - gnupg
       - lsb-release
       - python3-pip
-      - util-linux-extra
     state: present
     update_cache: true
+
+- name: Install util-linux-extra if available (Ubuntu 22.04+)
+  ansible.builtin.apt:
+    name: util-linux-extra
+    state: present
+  ignore_errors: true
 
 # Step 3: Add Docker's GPG key
 - name: Create directory for Docker GPG key

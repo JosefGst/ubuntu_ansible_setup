@@ -1,0 +1,15 @@
+---
+- name: Hytron setup
+  hosts: robots
+  become: true
+
+  tasks:
+
+    - name: Install Docker
+      include_tasks: Software/install_docker.yml
+
+  handlers:
+    - name: restart docker
+      ansible.builtin.systemd:
+        name: docker
+        state: restarted
